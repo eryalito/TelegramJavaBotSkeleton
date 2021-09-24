@@ -2,3 +2,6 @@
 /DBBackup/
 /target/
 /parameters.json
+.classpath
+.project
+.settings/
