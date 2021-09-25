@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.eryalus.emptybot.main.Main;
+
 /**
  *
  * @author eryalus
@@ -26,9 +28,9 @@ public class Dump {
         try {
             Process p;
             if (pass.equals("")) {
-                p = Runtime.getRuntime().exec("mysqldump -h " + host + " -u " + user + " "+Basics.NOMBRE_DB);
+                p = Runtime.getRuntime().exec("mysqldump -h " + host + " -u " + user + " "+Main.PARAMETERS.getDB_database());
             } else {
-                p = Runtime.getRuntime().exec("mysqldump -p" + pass + " -h " + host + " -u " + user + " "+Basics.NOMBRE_DB);
+                p = Runtime.getRuntime().exec("mysqldump -p" + pass + " -h " + host + " -u " + user + " "+Main.PARAMETERS.getDB_database());
             }
 
             InputStream in = p.getInputStream();
@@ -44,7 +46,7 @@ public class Dump {
             in.close();
         } catch (IOException ex) {
         } catch (InterruptedException ex) {
-            Logger.getLogger(Basics.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Dump.class.getName()).log(Level.SEVERE, null, ex);
         }
         return output;
     }
