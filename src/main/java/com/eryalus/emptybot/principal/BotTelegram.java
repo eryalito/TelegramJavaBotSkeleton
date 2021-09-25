@@ -6,8 +6,6 @@
 package com.eryalus.emptybot.principal;
 
 import com.eryalus.emptybot.acciones.AutoDump;
-import com.eryalus.emptybot.dataBase.ReguladorConexion;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -57,20 +55,6 @@ public class BotTelegram extends TelegramLongPollingBot {
         boolean temp = flag_log;
         flag_log = flag;
         return temp;
-    }
-
-    public ReguladorConexion getRegcon() {
-        return regcon;
-    }
-
-    protected ReguladorConexion regcon = null;
-
-    public Connection getConnection() {
-        return regcon.getConnection();
-    }
-
-    public BotTelegram(ReguladorConexion regcon) {
-        this.regcon = regcon;
     }
 
     /**

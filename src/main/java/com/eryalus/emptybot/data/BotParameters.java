@@ -12,8 +12,24 @@ package com.eryalus.emptybot.data;
 public class BotParameters {
 
     private int DB_port = 3306;
-    private String DB_user = "", DB_password = "";
+    private String DB_user = "", DB_password = "", DB_database = "", DB_ip = "";
     private String Bot_username = "", Bot_token = "";
+
+    public String getDB_ip() {
+        return this.DB_ip;
+    }
+
+    public void setDB_ip(String DB_ip) {
+        this.DB_ip = DB_ip;
+    }
+
+    public String getDB_database() {
+        return this.DB_database;
+    }
+
+    public void setDB_database(String DB_database) {
+        this.DB_database = DB_database;
+    }
 
     public int getDB_port() {
         return DB_port;
