@@ -29,7 +29,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
  */
 public class Main {
 
-    private static final long TIEMPO_REFRESCO_CONEXION_MILIS = 1 * 60 * 60 * 1000; //cada hora
     private static final long TIEMPO_GENERACION_COPIA_SEGURIDAD = 86400000L; //un día
     private static final String PARAMETERS_FILE_PATH = "parameters.json";
     public static BotParameters PARAMETERS;
