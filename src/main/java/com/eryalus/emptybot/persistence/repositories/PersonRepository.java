@@ -1,8 +1,11 @@
 package com.eryalus.emptybot.persistence.repositories;
 
 import com.eryalus.emptybot.persistence.entities.Person;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+
+
 
 public class PersonRepository extends Repository<Person>{
 
@@ -38,5 +41,9 @@ public class PersonRepository extends Repository<Person>{
             System.err.println(ex.getMessage());
         }
         return null;
+    }
+
+    public List<Person> findBySendLog(){
+        return em.createQuery("SELECT distinct p FROM Person p where p.sendLog = true").getResultList();
     }
 }

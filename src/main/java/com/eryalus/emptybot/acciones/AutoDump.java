@@ -5,6 +5,8 @@
  */
 package com.eryalus.emptybot.acciones;
 
+import com.eryalus.emptybot.persistence.entities.Person;
+import com.eryalus.emptybot.persistence.repositories.RepositoryManager;
 import com.eryalus.emptybot.principal.BotTelegram;
 import com.eryalus.emptybot.utils.time.Timer;
 import java.io.BufferedWriter;
@@ -13,9 +15,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 
 /**
  *
@@ -74,11 +78,12 @@ public class AutoDump extends Timer {
             bw = new BufferedWriter(new FileWriter(path));
             bw.write(output);
             bw.close();
-            ArrayList<Long> ids;
+            final ArrayList<Long> ids = action ? people : new ArrayList<>();
             if (action) {
-                ids = new ArrayList<>();//Basics.getLog(bot.getConnection());
-            } else {
-                ids = people;
+                List<Person> findBySendLog = RepositoryManager.getPersonRepository().findBySendLog();
+                findBySendLog.forEach(p -> {
+                    ids.add(p.getTelegramId());
+                });
             }
             send(ids, path);
         } catch (IOException ex) {

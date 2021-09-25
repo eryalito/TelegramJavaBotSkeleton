@@ -36,6 +36,9 @@ public class Person implements DefaultEntity{
     @Column(name = "admin")
     private Boolean admin = false;
 
+    @Column(name = "send_log")
+    private Boolean sendLog = false;
+
     public Person() {
     }
 
@@ -52,6 +55,23 @@ public class Person implements DefaultEntity{
         this.name = chat.getFirstName();
         this.surname = chat.getLastName();
         this.username = chat.getUserName();
+    }
+
+
+    public Boolean isAdmin() {
+        return this.admin;
+    }
+
+    public Boolean isSendLog() {
+        return this.sendLog;
+    }
+
+    public Boolean getSendLog() {
+        return this.sendLog;
+    }
+
+    public void setSendLog(Boolean sendLog) {
+        this.sendLog = sendLog;
     }
 
     public Boolean getAdmin() {
