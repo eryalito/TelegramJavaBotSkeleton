@@ -9,6 +9,9 @@ import com.eryalus.emptybot.principal.BotTelegram;
 import com.eryalus.emptybot.data.Send;
 import com.eryalus.emptybot.estados.Estado;
 import com.eryalus.emptybot.estados.EstadoCallback;
+import com.eryalus.emptybot.persistence.entities.Person;
+import com.eryalus.emptybot.persistence.repositories.RepositoryManager;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,11 +44,10 @@ public class AccionNoAdminCallBack implements Action {
         if (UPDATE.getMessage().getChat().isUserChat()) {
             Message mensaje = UPDATE.getMessage();
             Chat chat = mensaje.getChat();
-            com.eryalus.emptybot.dataBase.People.addPerson(chat, PARENT.getConnection());
+            Person person = RepositoryManager.getPersonRepository().addIfNotExists(new Person(chat));
             ArrayList<Send> ms = new ArrayList<>();
             Boolean delete = false;
-            Integer estado = com.eryalus.emptybot.dataBase.People.getEstado(chat, PARENT.getConnection());
-            switch (estado) {
+            switch (person.getState()) {
                 case Estado.ESTADO_GENERAL:
                     EstadoCallback estado_act = new com.eryalus.emptybot.estados.EstadoCallback(chat, UPDATE, PARENT);
                     ms = estado_act.response(ms);

@@ -6,9 +6,11 @@
 package com.eryalus.emptybot.principal;
 
 import com.eryalus.emptybot.acciones.AccionAdmin;
-import com.eryalus.emptybot.acciones.Action;
 import com.eryalus.emptybot.acciones.AccionNoAdmin;
 import com.eryalus.emptybot.acciones.AccionNoAdminCallBack;
+import com.eryalus.emptybot.acciones.Action;
+import com.eryalus.emptybot.persistence.entities.Person;
+import com.eryalus.emptybot.persistence.repositories.RepositoryManager;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -45,7 +47,8 @@ public class RespuestaConsulta extends Thread {
             try {
                 Action accion;
                 boolean done = false;
-                if (com.eryalus.emptybot.dataBase.People.isAdmin(UPDATE.getMessage().getChat(), PARENT.getConnection())) {
+                Person person = RepositoryManager.getPersonRepository().findByTelegramId(UPDATE.getMessage().getChatId());
+                if (person != null && person.getAdmin()) {
                     accion = new AccionAdmin(UPDATE, PARENT);
                     done = accion.action();
                 }
